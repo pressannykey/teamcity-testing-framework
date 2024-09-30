@@ -17,7 +17,7 @@
         <lombok.version>1.18.30</lombok.version>
         <testng.version>7.8.0</testng.version>
         <slf4j.version>2.0.9</slf4j.version>
-        <kotlin.version>1.9.0</kotlin.version>
+        <allure.version>2.21.0</allure.version>
         <maven.compiler.release>17</maven.compiler.release>
         <java.version>17</java.version>
     </properties>
@@ -34,12 +34,6 @@
             <version>${lombok.version}</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
@@ -53,6 +47,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
         </dependency>
     </dependencies>
 
