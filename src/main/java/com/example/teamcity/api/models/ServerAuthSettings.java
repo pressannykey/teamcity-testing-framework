@@ -13,5 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServerAuthSettings extends BaseModel {
-    private Boolean getProjectPermissions;
+    @Builder.Default
+    private String guestUsername = "guest";
+    private Boolean perProjectPermissions;
 }

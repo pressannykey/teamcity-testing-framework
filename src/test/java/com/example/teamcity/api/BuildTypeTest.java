@@ -1,61 +1,58 @@
 package com.example.teamcity.api;
 
-import com.example.teamcity.api.enums.Endpoint;
 import com.example.teamcity.api.models.BuildType;
 import com.example.teamcity.api.models.Project;
 import com.example.teamcity.api.models.User;
-import com.example.teamcity.api.requests.checked.CheckedBase;
+import com.example.teamcity.api.requests.CheckedRequests;
+import com.example.teamcity.api.requests.unchecked.UncheckedBase;
 import com.example.teamcity.api.spec.Specifications;
+import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Arrays;
 
+import static com.example.teamcity.api.enums.Endpoint.*;
 import static com.example.teamcity.api.generators.TestDataGenerator.generate;
 import static io.qameta.allure.Allure.step;
+import static org.apache.http.HttpStatus.SC_BAD_REQUEST;
 
 @Test(groups = {"Regression"})
 public class BuildTypeTest extends BaseApiTest {
     @Test(description = "User should be able to create build type", groups = {"Positive", "CRUD"})
     public void userCreatesBuildTypeTest() {
         var user = generate(User.class);
+        superUserCheckRequests.getRequest(USERS).create(user);
 
-        step("Create user", () -> {
-            var requester = new CheckedBase<User>(Specifications.superUserSpec(), Endpoint.USERS);
-            requester.create(user);
-        });
+        var userCheckRequests = new CheckedRequests(Specifications.authSpec(user));
 
         var project = generate(Project.class);
-        AtomicReference<String> projectId = new AtomicReference<>("");
+        project = userCheckRequests.<Project>getRequest(PROJECT).create(project);
 
-        step("Create project by user", () -> {
-            var requester = new CheckedBase<Project>(Specifications.authSpec(user), Endpoint.PROJECT);
-            projectId.set(requester.create(project).getId());
-        });
+        var buildType = generate(Arrays.asList(project), BuildType.class);
+        userCheckRequests.getRequest(BUILD_TYPES).create(buildType);
 
-        var buildType = generate(BuildType.class);
-        buildType.setProject(Project.builder().id(projectId.get()).locator(null).build());
-
-        var requester = new CheckedBase<BuildType>(Specifications.authSpec(user), Endpoint.BUILD_TYPES);
-        AtomicReference<String> buildTypeId = new AtomicReference<>("");
-
-        step("Create buildType for project by user", () ->
-                buildTypeId.set(requester.create(buildType).getId()));
-
-        step("Check buildType was created successfully with correct data", () -> {
-            var createdBuildType = requester.read(buildTypeId.get());
-            softy.assertEquals(buildType.getName(),
-                    createdBuildType.getName(),
-                    "Build type name is not correct");
-        });
+        var createdBuildType = userCheckRequests.<BuildType>getRequest(BUILD_TYPES).read(buildType.getId());
+        softy.assertEquals(buildType.getName(), createdBuildType.getName(), "Build type name is not correct");
     }
 
     @Test(description = "User should not be able to create two build types with the same id", groups = {"Negative", "CRUD"})
     public void userCreatesTwoBuildTypesWithTheSameIdTest() {
-        step("Create user");
-        step("Create project by user");
-        step("Create buildType1 for project by user");
-        step("Create buildType2 with same id as buildType1 for project by user");
-        step("Check buildType was not created with code 400");
+        var user = generate(User.class);
+        superUserCheckRequests.getRequest(USERS).create(user);
+
+        var userCheckRequests = new CheckedRequests(Specifications.authSpec(user));
+
+        var project = generate(Project.class);
+        project = userCheckRequests.<Project>getRequest(PROJECT).create(project);
+
+        var buildType1 = generate(Arrays.asList(project), BuildType.class);
+        userCheckRequests.getRequest(BUILD_TYPES).create(buildType1);
+
+        var buildType2 = generate(Arrays.asList(project), BuildType.class, buildType1.getId());
+        new UncheckedBase(Specifications.authSpec(user), BUILD_TYPES)
+                .create(buildType2)
+                .then().assertThat().statusCode(SC_BAD_REQUEST)
+                .body(Matchers.containsString("The build configuration / template ID \"%s\" is already used by another configuration or template".formatted(buildType1.getId())));
     }
 
     @Test(description = "Project admin should be able to create build type for their project", groups = {"Positive", "Roles"})

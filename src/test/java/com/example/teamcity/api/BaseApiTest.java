@@ -15,9 +15,11 @@ public class BaseApiTest extends BaseTest {
 
 //    @BeforeMethod
 //    public void activatePermissions() {
-//        var settings = ServerAuthSettings.builder().getProjectPermissions(true).build();
-//
 //        step("Set permissions", () -> {
+//            var settings = ServerAuthSettings.builder()
+//                    .perProjectPermissions(true)
+//                    .build();
+//
 //            var requester = new CheckedBase<ServerAuthSettings>(Specifications.superUserSpec(), Endpoint.AUTH_SETTINGS);
 //            requester.update(settings);
 //        });
