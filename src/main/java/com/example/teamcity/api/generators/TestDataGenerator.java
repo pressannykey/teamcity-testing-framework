@@ -125,7 +125,7 @@ public final class TestDataGenerator {
             return instance;
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
-            throw new IllegalStateException("Cannot generate test data");
+            throw new IllegalStateException("Cannot generate test data", e);
         }
     }
 
