@@ -35,18 +35,18 @@ public class UncheckedBase extends Request implements CrudInterface {
     public Response update(String id, BaseModel model) {
         return RestAssured
                 .given()
-                .body(model)
                 .spec(spec)
+                .body(model)
                 .put(endpoint.getUrl() + "/id:" + id);
     }
 
-//    public Response update(BaseModel model) {
-//        return RestAssured
-//                .given()
-//                .body(model)
-//                .spec(spec)
-//                .put(endpoint.getUrl());
-//    }
+    public Response update(BaseModel model) {
+        return RestAssured
+                .given()
+                .spec(spec)
+                .body(model)
+                .put(endpoint.getUrl());
+    }
 
     @Override
     public Response delete(String id) {

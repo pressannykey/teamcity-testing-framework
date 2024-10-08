@@ -18,6 +18,4 @@ public class Project extends BaseModel{
     @Random
     private String name;
     private String locator;
-//    @Builder.Default
-//    private String locator = "_Root";
 }

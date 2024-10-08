@@ -6,17 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ServerAuthSettings extends BaseModel {
-    @Builder.Default
-    private String guestUsername = "guest";
-    @Builder.Default
-    private Boolean perProjectPermissions = true;
-    @Builder.Default
-    private String twoFactorAuthenticationType = "OPTIONAL";
-    private Modules modules;
+public class Properties extends BaseModel {
+    private List<Property> property;
 }
