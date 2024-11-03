@@ -2,7 +2,7 @@ package com.example.teamcity.ui;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import com.example.teamcity.api.BaseTest;
+import com.example.teamcity.BaseTest;
 import com.example.teamcity.api.config.Config;
 import com.example.teamcity.api.enums.Endpoint;
 import com.example.teamcity.api.models.User;

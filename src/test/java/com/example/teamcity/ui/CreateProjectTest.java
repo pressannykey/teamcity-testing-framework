@@ -2,17 +2,18 @@ package com.example.teamcity.ui;
 
 import com.codeborne.selenide.Condition;
 import com.example.teamcity.api.enums.Endpoint;
+import com.example.teamcity.api.generators.TestDataStorage;
 import com.example.teamcity.api.models.Project;
 import com.example.teamcity.ui.pages.ProjectPage;
 import com.example.teamcity.ui.pages.ProjectsPage;
 import com.example.teamcity.ui.pages.admin.CreateProjectPage;
 import org.testng.annotations.Test;
 
+import static com.example.teamcity.ui.pages.admin.CreateBasePage.REPO_URL;
 import static io.qameta.allure.Allure.step;
 
 @Test(groups = {"Regression"})
 public class CreateProjectTest extends BaseUiTest {
-    private static final String REPO_URL = "https://github.com/AlexPshe/spring-core-for-qa";
 
     @Test(description = "User should be able to create project", groups = {"Positive"})
     public void userCreatesProject() {
@@ -28,6 +29,7 @@ public class CreateProjectTest extends BaseUiTest {
         // (корректность отправки данных с UI на API)
         var createdProject = superUserCheckRequests.<Project>getRequest(Endpoint.PROJECTS).read("name:" + testData.getProject().getName());
         softy.assertNotNull(createdProject);
+        TestDataStorage.getStorage().addCreatedEntity(Endpoint.PROJECTS, createdProject);
 
         // проверка состояния UI
         // (корректность считывания данных и отображение данных на UI)

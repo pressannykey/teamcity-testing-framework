@@ -1,5 +1,6 @@
 package com.example.teamcity.api;
 
+import com.example.teamcity.BaseTest;
 import com.example.teamcity.api.enums.Endpoint;
 import com.example.teamcity.api.models.ServerAuthSettings;
 import com.example.teamcity.api.requests.checked.CheckedBase;
