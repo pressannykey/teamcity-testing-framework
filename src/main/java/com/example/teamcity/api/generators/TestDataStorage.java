@@ -46,7 +46,7 @@ public class TestDataStorage {
                 locatorField.setAccessible(false);
                 return locatorFieldValue;
             } catch (NoSuchFieldException | IllegalAccessException ex) {
-                throw new IllegalStateException ("Cannot get id or locator of entity", ex);
+                throw new IllegalStateException("Cannot get id or locator of entity", ex);
             }
         }
     }
@@ -58,7 +58,7 @@ public class TestDataStorage {
     public void deleteCreatedEntities() {
         createdEntitiesMap.forEach(((endpoint, ids) ->
                         ids.forEach(id ->
-                                new UncheckedBase(Specifications.superUserSpec(), endpoint).delete(id)
+                                new UncheckedBase(Specifications.superUserSpec(), endpoint).delete("id:" + id)
                         )
                 )
         );
