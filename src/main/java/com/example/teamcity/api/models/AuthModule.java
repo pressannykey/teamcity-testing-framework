@@ -1,5 +1,6 @@
 package com.example.teamcity.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Module extends BaseModel {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class AuthModule extends BaseModel {
     @Builder.Default
     private String name = "HTTP-Basic";
-    private Properties properties;
 }

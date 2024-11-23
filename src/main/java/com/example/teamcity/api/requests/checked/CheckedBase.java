@@ -45,13 +45,6 @@ public final class CheckedBase<T extends BaseModel> extends Request implements C
                 .extract().as(endpoint.getModelClass());
     }
 
-    public T update(BaseModel model) {
-        return (T) uncheckedBase
-                .update(model)
-                .then().assertThat().statusCode(HttpStatus.SC_OK)
-                .extract().as(endpoint.getModelClass());
-    }
-
     @Override
     public String delete(String id) {
         return uncheckedBase
