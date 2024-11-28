@@ -20,7 +20,6 @@ public final class CheckedBase<T extends BaseModel> extends Request implements C
     }
 
     @Override
-    @Step("Create entity with endpoint {endpoint.getUrl()}")
     public T create(BaseModel model) {
         var createdModel = (T) uncheckedBase
                 .create(model)
