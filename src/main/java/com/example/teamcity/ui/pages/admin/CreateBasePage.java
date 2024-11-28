@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public abstract class CreateBasePage extends BasePage {
     protected static final String CREATE_URL = "/admin/createObjectMenu.html?projectId=%s&showMode=%s";
-    public static final String REPO_URL = "https://github.com/AlexPshe/spring-core-for-qa";
+    public static final String REPO_URL = "https://github.com/pressannykey/teamcity-testing-framework";
 
     protected final SelenideElement urlInput = $("#url");
     protected final SelenideElement submitButton = $(Selectors.byAttribute("value", "Proceed"));

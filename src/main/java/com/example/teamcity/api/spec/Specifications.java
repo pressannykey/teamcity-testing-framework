@@ -16,18 +16,16 @@ import java.nio.file.Paths;
 import static com.github.viclovsky.swagger.coverage.SwaggerCoverageConstants.OUTPUT_DIRECTORY;
 
 public class Specifications {
-    private static Specifications spec;
-
     private static RequestSpecBuilder reqBuilder() {
         var requestBuilder = new RequestSpecBuilder();
         requestBuilder.addFilter(new RequestLoggingFilter());
         requestBuilder.addFilter(new ResponseLoggingFilter());
-        requestBuilder.addFilter(new AllureRestAssured());
         requestBuilder.addFilter(new SwaggerCoverageRestAssured(
                 new FileSystemOutputWriter(
                         Paths.get("target/" + OUTPUT_DIRECTORY)
                 )
         ));
+        requestBuilder.addFilter(new AllureRestAssured());
         requestBuilder.setContentType(ContentType.JSON);
         requestBuilder.setAccept(ContentType.JSON);
         return requestBuilder;
