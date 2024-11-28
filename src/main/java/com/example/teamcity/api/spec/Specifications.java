@@ -22,12 +22,12 @@ public class Specifications {
         var requestBuilder = new RequestSpecBuilder();
         requestBuilder.addFilter(new RequestLoggingFilter());
         requestBuilder.addFilter(new ResponseLoggingFilter());
+        requestBuilder.addFilter(new AllureRestAssured());
         requestBuilder.addFilter(new SwaggerCoverageRestAssured(
                 new FileSystemOutputWriter(
                         Paths.get("target/" + OUTPUT_DIRECTORY)
                 )
         ));
-        requestBuilder.addFilter(new AllureRestAssured());
         requestBuilder.setContentType(ContentType.JSON);
         requestBuilder.setAccept(ContentType.JSON);
         return requestBuilder;

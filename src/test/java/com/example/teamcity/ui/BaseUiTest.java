@@ -27,8 +27,8 @@ public class BaseUiTest extends BaseTest {
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true)
-                .savePageSource(true)
-                .includeSelenideSteps(true));
+                .savePageSource(true));
+//                .includeSelenideSteps(true));
     }
 
     @AfterMethod(alwaysRun = true)

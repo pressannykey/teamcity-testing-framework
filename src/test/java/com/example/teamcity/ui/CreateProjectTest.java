@@ -41,7 +41,7 @@ public class CreateProjectTest extends BaseUiTest {
         softy.assertTrue(projectExists);
     }
 
-    @Test(description = "User should not be able to craete project without name", groups = {"Negative"})
+    @Test(description = "User should not be able to create project without name", groups = {"Negative"})
     public void userCreatesProjectWithoutName() {
         // подготовка окружения
         step("Login as user");
