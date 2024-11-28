@@ -6,6 +6,7 @@ import com.example.teamcity.api.models.BaseModel;
 import com.example.teamcity.api.requests.CrudInterface;
 import com.example.teamcity.api.requests.Request;
 import com.example.teamcity.api.requests.unchecked.UncheckedBase;
+import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 
@@ -19,6 +20,7 @@ public final class CheckedBase<T extends BaseModel> extends Request implements C
     }
 
     @Override
+    @Step("Create entity with endpoint {endpoint.getUrl()}")
     public T create(BaseModel model) {
         var createdModel = (T) uncheckedBase
                 .create(model)
