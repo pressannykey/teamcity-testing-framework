@@ -9,6 +9,9 @@ import com.example.teamcity.ui.pages.ProjectsPage;
 import com.example.teamcity.ui.pages.admin.CreateProjectPage;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.visible;
 import static com.example.teamcity.ui.pages.admin.CreateBasePage.REPO_URL;
 import static io.qameta.allure.Allure.step;
 
@@ -37,7 +40,10 @@ public class CreateProjectTest extends BaseUiTest {
                 .title.shouldHave(Condition.exactText(testData.getProject().getName()));
 
         var projectExists = ProjectsPage.open().getProjects().stream()
-                .anyMatch(project -> project.getName().text().equals(testData.getProject().getName()));
+                .anyMatch(project -> {
+                    project.getName().shouldBe(visible, Duration.ofSeconds(2));
+                    return project.getName().getText().equals(testData.getProject().getName());
+                });
         softy.assertTrue(projectExists);
     }
 
