@@ -34,7 +34,7 @@ public class CreateProjectTest extends BaseUiTest {
         softy.assertNotNull(createdProject);
         TestDataStorage.getStorage().addCreatedEntity(Endpoint.PROJECTS, createdProject);
 
-        // Проверка состояния UI
+        // проверка состояния UI
         // (корректность считывания данных и отображение данных на UI)
         ProjectPage.open(createdProject.getId())
                 .title.shouldHave(Condition.exactText(testData.getProject().getName()));
