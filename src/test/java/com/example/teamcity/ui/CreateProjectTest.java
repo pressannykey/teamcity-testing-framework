@@ -49,7 +49,7 @@ public class CreateProjectTest extends BaseUiTest {
 
     @Test(description = "User should not be able to create project without name", groups = {"Negative"})
     public void userCreatesProjectWithoutName() {
-        // подготовка окружения
+        // Подготовка окружения
         step("Login as user");
         step("Check number of projects");
 
