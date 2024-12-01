@@ -1,0 +1,18 @@
+name: Deploy to prod
+
+on: workflow_call
+
+# Это лишь примерные степы, как может выглядеть деплой
+jobs:
+  deploy-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy backend
+        run: echo Происходит деплой фронтенда
+
+  deploy-ui:
+    needs: deploy-api
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy frontend
+        run: echo Происходит деплой фронтенда

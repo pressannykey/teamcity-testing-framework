@@ -17,11 +17,12 @@
         <lombok.version>1.18.30</lombok.version>
         <testng.version>7.8.0</testng.version>
         <slf4j.version>2.0.9</slf4j.version>
-        <allure.version>2.21.0</allure.version>
+        <allure.version>2.27.0</allure.version>
         <jackson.version>2.17.2</jackson.version>
         <maven.compiler.release>17</maven.compiler.release>
         <java.version>17</java.version>
         <selenide.version>7.4.3</selenide.version>
+        <swagger-coverage-version>1.5.0</swagger-coverage-version>
     </properties>
 
     <dependencies>
@@ -51,11 +52,6 @@
             <version>${slf4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-testng</artifactId>
-            <version>${allure.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>${jackson.version}</version>
@@ -75,6 +71,28 @@
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.viclovsky</groupId>
+            <artifactId>swagger-coverage-rest-assured</artifactId>
+            <version>${swagger-coverage-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>${allure.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -82,6 +100,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <executions>
                     <execution>
                         <id>default-compile</id>

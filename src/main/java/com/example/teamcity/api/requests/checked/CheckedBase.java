@@ -6,6 +6,7 @@ import com.example.teamcity.api.models.BaseModel;
 import com.example.teamcity.api.requests.CrudInterface;
 import com.example.teamcity.api.requests.Request;
 import com.example.teamcity.api.requests.unchecked.UncheckedBase;
+import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 
@@ -41,13 +42,6 @@ public final class CheckedBase<T extends BaseModel> extends Request implements C
     public T update(String id, BaseModel model) {
         return (T) uncheckedBase
                 .update(id, model)
-                .then().assertThat().statusCode(HttpStatus.SC_OK)
-                .extract().as(endpoint.getModelClass());
-    }
-
-    public T update(BaseModel model) {
-        return (T) uncheckedBase
-                .update(model)
                 .then().assertThat().statusCode(HttpStatus.SC_OK)
                 .extract().as(endpoint.getModelClass());
     }
